@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Testing PhoneGap</title>
+        <script src="./js/createjs_1.1_min.js"></script>
+        <script src="./js/zim_10.js"></script>
+        <script>
+
+        var scaling = "fit";
+        var width = 1024;
+        var height = 768;
+        var color = light;
+        var outerColor = dark;
+
+        var frame = new Frame(scaling, width, height, color, outerColor);
+        frame.on("ready", function() {
+            zog("Ready from ZIM Frame");
+
+            var stage = frame.stage;
+            var stageW = frame.width;
+            var stageH = frame.height;
+
+            // put your code here:
+
+            stage.update();
+
+        });
+
+        </script>
+
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+    </head>
+    <body>
+
+    </body>
+</html>
