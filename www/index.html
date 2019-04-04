@@ -2,26 +2,43 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Testing PhoneGap</title>
+        <title>Test</title>
         <script src="./js/createjs_1.1_min.js"></script>
         <script src="./js/zim_10.js"></script>
         <script>
 
-        var scaling = "fit";
-        var width = 1024;
-        var height = 768;
-        var color = light;
-        var outerColor = dark;
+        const color = light;
+        const outerColor = dark;
 
-        var frame = new Frame(scaling, width, height, color, outerColor);
-        frame.on("ready", function() {
+        var frame = new Frame({color, outerColor});
+        frame.on("ready", () => {
             zog("Ready from ZIM Frame");
 
-            var stage = frame.stage;
-            var stageW = frame.width;
-            var stageH = frame.height;
+            const stage = frame.stage;
+            let stageW = frame.width;
+            let stageH = frame.height;
 
             // put your code here:
+
+            const page1 = new Container(stageW, stageH);
+            const back1 = new Rectangle(stageW, stageH, pink).addTo(page1);
+            const title1 = new Label("Page 1").addTo(page1).pos(30, 30);
+
+            const page2 = new Container(stageW, stageH);
+            const back2 = new Rectangle(stageW, stageH, blue).addTo(page2);
+            const title2 = new Label("Page 2").addTo(page2).pos(30, 30);
+
+            const pages = new Pages([
+                {page:page1, swipe:[page2, page2]},
+                {page:page2, swipe:[page1, page1]}
+            ], "slide").addTo();
+
+            frame.on("resize", () => {
+                back1.scaleTo(stage, 100, 100, "both");
+                back2.scaleTo(stage, 100, 100, "both");
+                pages.resize();
+                stage.update();
+            });
 
             stage.update();
 
