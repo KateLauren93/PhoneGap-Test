@@ -5,7 +5,7 @@
         id        = "com.sheridan.immcollective"
         version   = "1.0.0">
 
-    <name>Tilty</name>
+    <name>Test</name>
 
     <description>
         Testing out phonegap.
