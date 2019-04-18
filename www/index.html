@@ -9,8 +9,10 @@
 
         const color = light;
         const outerColor = dark;
+        const assets = ["christmas-lights.png", "fan.png", "light-bulb.png", "pool.png"];
+        const path = "assets/";
 
-        var frame = new Frame({color, outerColor});
+        const frame = new Frame({color, outerColor, assets, path});
         frame.on("ready", () => {
             zog("Ready from ZIM Frame");
 
@@ -18,19 +20,78 @@
             let stageW = frame.width;
             let stageH = frame.height;
 
-            // put your code here:
+            // Put your code here:
 
-            const page1 = new Container(stageW, stageH);
-            const back1 = new Rectangle(stageW, stageH, pink).addTo(page1);
-            const title1 = new Label("Page 1").addTo(page1).pos(30, 30);
+            // BACKYARD
+            const backyard = new Container(stageW, stageH);
+            const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
+            const title1 = new Label("Backyard").addTo(backyard).pos(50, 50);
 
-            const page2 = new Container(stageW, stageH);
-            const back2 = new Rectangle(stageW, stageH, blue).addTo(page2);
-            const title2 = new Label("Page 2").addTo(page2).pos(30, 30);
+            const christmasLights = frame.asset("christmas-lights.png").sca(0.25).addTo(backyard).pos(50, 150);
+            const labelYard = new Label("Yard Lights").addTo(backyard).pos(250, 200);
 
+            const fan = frame.asset("fan.png").sca(0.25).addTo(backyard).pos(50, 300);
+            const labelFan = new Label("Fan").addTo(backyard).pos(250, 350);
+
+            const lightBulb = frame.asset("light-bulb.png").sca(0.25).addTo(backyard).pos(50, 450);
+            const labelFanLight = new Label("Fan Light").addTo(backyard).pos(250, 500);
+
+            const pool = frame.asset("pool.png").sca(0.25).alp(1).addTo(backyard).pos(50, 600);
+            const labelPool = new Label("Pool Lights").addTo(backyard).pos(250, 650);
+            // if (pool.alp = 1) {
+            //     pool.tap(function (e) {
+            //         e.target.alpha = 0.5;
+            //         stage.update();
+            //     });
+            // } else {
+            //     pool.tap(function (e) {
+            //         e.target.alpha = 1;
+            //         stage.update();
+            //     });
+            // }
+
+            const backyardArray = [christmasLights, fan, lightBulb, pool];
+
+            for (var i=0; i<backyardArray.length; i++) {
+                backyardArray[i].tap(function (e) {
+                    e.target.alpha = 0.5;
+                    stage.update();
+                });
+            }
+
+            // BASEMENT
+            const basement = new Container(stageW, stageH);
+            const back2 = new Rectangle(stageW, stageH, blue).addTo(basement);
+            const title2 = new Label("Basement").addTo(basement).pos(50, 50);
+
+            const frontLight = lightBulb.clone().addTo(basement).pos(50, 150);
+            const labelFL = new Label("Front Lights").addTo(basement).pos(250, 200);
+
+            const backLight = lightBulb.clone().addTo(basement).pos(50, 300);
+            const labelBL = new Label("Back Lights").addTo(basement).pos(250, 350);
+
+            const frontAlcove = lightBulb.clone().addTo(basement).pos(50, 450);
+            const labelFA = new Label("Front Alcove").addTo(basement).pos(250, 500);
+
+            const backAlcove = lightBulb.clone().addTo(basement).pos(50, 600);
+            const labelBA = new Label("Back Alcove").addTo(basement).pos(250, 650);
+
+            const hallway = lightBulb.clone().addTo(basement).pos(50, 750);
+            const labelHL = new Label("Hallway Light").addTo(basement).pos(250, 800);
+
+            const basementArray = [frontLight, backLight, frontAlcove, backAlcove, hallway];
+
+            for (var i=0; i<basementArray.length; i++) {
+                basementArray[i].tap(function (e) {
+                    e.target.alpha = 0.5;
+                    stage.update();
+                });
+            }
+
+            // PAGE CONTROL
             const pages = new Pages([
-                {page:page1, swipe:[page2, page2]},
-                {page:page2, swipe:[page1, page1]}
+                {page:backyard, swipe:[basement, basement]},
+                {page:basement, swipe:[backyard, backyard]}
             ], "slide").addTo();
 
             frame.on("resize", () => {
