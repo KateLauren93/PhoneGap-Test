@@ -12,13 +12,15 @@
         const assets = ["christmas-lights.png", "fan.png", "light-bulb.png", "pool.png"];
         const path = "assets/";
 
-        // STYLE = {
-        //     type: {
-        //         Bitmap: {
-        //             alpha: 0.2
-        //         }
-        //     }
-        // }
+        STYLE = {
+            type: {
+                Label: {
+                    // centerReg: true,
+                    valign: "center",
+                    outline: true
+                }
+            }
+        }
 
         const frame = new Frame({color, outerColor, assets, path});
         frame.on("ready", () => {
@@ -40,25 +42,25 @@
             const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
             const title1 = new Label("Backyard").addTo(backyard).pos(50, 50);
 
-            const yardLights = christmasLights.clone().sca(0.25).addTo(backyard).pos(50, 150).expand();
+            const yardLights = christmasLights.clone().centerReg(backyard).expand();
             yardLights.id = "48003";
-            const labelYardLights = new Label("Yard Lights").addTo(backyard).pos(250, 200);
+            const labelYardLights = new Label("Yard Lights").centerReg(backyard);
 
-            const poolHouseFanLight = lightBulb.clone().sca(0.25).addTo(backyard).pos(50, 300).expand();
+            const poolHouseFanLight = lightBulb.clone().centerReg(backyard).expand();
             poolHouseFanLight.id = "05 15 92 1";
-            const labelPoolHouseFanLight = new Label("Fan Light").addTo(backyard).pos(250, 350);
+            const labelPoolHouseFanLight = new Label("Fan Light").centerReg(backyard);
 
-            const poolHouseFan = fan.clone().sca(0.25).addTo(backyard).pos(50, 450).expand();
+            const poolHouseFan = fan.clone().centerReg(backyard).expand();
             poolHouseFan.id = "4090";
-            const labelPoolHouseFan = new Label("Fan").addTo(backyard).pos(250, 500);
+            const labelPoolHouseFan = new Label("Fan").centerReg(backyard);
 
-            const poolHouseLight = lightBulb.clone().sca(0.25).addTo(backyard).pos(50, 600).expand();
+            const poolHouseLight = lightBulb.clone().centerReg(backyard).expand();
             poolHouseLight.id = "05 15 D7 1";
-            const labelPoolHouseLight = new Label("Pool House Lights").addTo(backyard).pos(250, 650);
+            const labelPoolHouseLight = new Label("Pool House Lights").centerReg(backyard);
 
-            const poolLight = frame.asset("pool.png").sca(0.25).addTo(backyard).pos(50, 750).expand();
+            const poolLight = frame.asset("pool.png").centerReg(backyard).expand();
             poolLight.id = "10063";
-            const labelPoolLight = new Label("Pool Lights").addTo(backyard).pos(250, 800);
+            const labelPoolLight = new Label("Pool Lights").centerReg(backyard);
 
             const backyardArray = [yardLights, poolHouseFanLight, poolHouseFan, poolHouseLight, poolLight];
             for (var i=0; i<backyardArray.length; i++) {
@@ -80,7 +82,6 @@
 
             const basementAllLights = lightBulb.clone().sca(0.25).addTo(basement).pos(600, 450).expand();
             const labelBAL = new Label("All Lights").addTo(basement).pos(800, 500);
-            // basementAllLights.fit();
             basementAllLights.id = "26239";
 
             const basementFrontLight = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 150).expand();
@@ -122,9 +123,30 @@
                 {page:basement, swipe:[backyard, backyard]}
             ], "slide").addTo();
 
+            // RESPONSIVE
+            var factor = 0.25;
+            var marginX = 0.25;
+            var spacingX = 0.5;
+            var marginY = 0.25;
+            var spacingY = 0.15;
+
             frame.on("resize", () => {
+                stageW = frame.width;
+                stageH = frame.height;
+                // zog(stageW, stageH);
                 back1.scaleTo(stage, 100, 100, "both");
                 back2.scaleTo(stage, 100, 100, "both");
+                // backyard placement
+                yardLights.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*0));
+                labelYardLights.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*0));
+                poolHouseFanLight.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*1));
+                labelPoolHouseFanLight.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*1));
+                poolHouseFan.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*2));
+                labelPoolHouseFan.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*2));
+                poolHouseLight.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*3));
+                labelPoolHouseLight.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*3));
+                poolLight.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*4));
+                labelPoolLight.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*4));
                 pages.resize();
                 stage.update();
             });
