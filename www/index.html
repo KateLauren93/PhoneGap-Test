@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Test</title>
+        <title>Home Automation</title>
         <script src="./js/createjs_1.1_min.js"></script>
         <script src="./js/zim_10.js"></script>
         <script>
@@ -11,6 +11,14 @@
         const outerColor = dark;
         const assets = ["christmas-lights.png", "fan.png", "light-bulb.png", "pool.png"];
         const path = "assets/";
+
+        // STYLE = {
+        //     type: {
+        //         Bitmap: {
+        //             alpha: 0.2
+        //         }
+        //     }
+        // }
 
         const frame = new Frame({color, outerColor, assets, path});
         frame.on("ready", () => {
@@ -22,40 +30,46 @@
 
             // Put your code here:
 
+            // ASSETS
+            const christmasLights = frame.asset("christmas-lights.png");
+            const lightBulb = frame.asset("light-bulb.png");
+            const fan = frame.asset("fan.png");
+
             // BACKYARD
             const backyard = new Container(stageW, stageH);
             const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
             const title1 = new Label("Backyard").addTo(backyard).pos(50, 50);
 
-            const christmasLights = frame.asset("christmas-lights.png").sca(0.25).addTo(backyard).pos(50, 150);
-            const labelYard = new Label("Yard Lights").addTo(backyard).pos(250, 200);
+            const yardLights = christmasLights.clone().sca(0.25).addTo(backyard).pos(50, 150).expand();
+            yardLights.id = "48003";
+            const labelYardLights = new Label("Yard Lights").addTo(backyard).pos(250, 200);
 
-            const fan = frame.asset("fan.png").sca(0.25).addTo(backyard).pos(50, 300);
-            const labelFan = new Label("Fan").addTo(backyard).pos(250, 350);
+            const poolHouseFanLight = lightBulb.clone().sca(0.25).addTo(backyard).pos(50, 300).expand();
+            poolHouseFanLight.id = "05 15 92 1";
+            const labelPoolHouseFanLight = new Label("Fan Light").addTo(backyard).pos(250, 350);
 
-            const lightBulb = frame.asset("light-bulb.png").sca(0.25).addTo(backyard).pos(50, 450);
-            const labelFanLight = new Label("Fan Light").addTo(backyard).pos(250, 500);
+            const poolHouseFan = fan.clone().sca(0.25).addTo(backyard).pos(50, 450).expand();
+            poolHouseFan.id = "4090";
+            const labelPoolHouseFan = new Label("Fan").addTo(backyard).pos(250, 500);
 
-            const pool = frame.asset("pool.png").sca(0.25).alp(1).addTo(backyard).pos(50, 600);
-            const labelPool = new Label("Pool Lights").addTo(backyard).pos(250, 650);
-            // if (pool.alp = 1) {
-            //     pool.tap(function (e) {
-            //         e.target.alpha = 0.5;
-            //         stage.update();
-            //     });
-            // } else {
-            //     pool.tap(function (e) {
-            //         e.target.alpha = 1;
-            //         stage.update();
-            //     });
-            // }
+            const poolHouseLight = lightBulb.clone().sca(0.25).addTo(backyard).pos(50, 600).expand();
+            poolHouseLight.id = "05 15 D7 1";
+            const labelPoolHouseLight = new Label("Pool House Lights").addTo(backyard).pos(250, 650);
 
-            const backyardArray = [christmasLights, fan, lightBulb, pool];
+            const poolLight = frame.asset("pool.png").sca(0.25).addTo(backyard).pos(50, 750).expand();
+            poolLight.id = "10063";
+            const labelPoolLight = new Label("Pool Lights").addTo(backyard).pos(250, 800);
 
+            const backyardArray = [yardLights, poolHouseFanLight, poolHouseFan, poolHouseLight, poolLight];
             for (var i=0; i<backyardArray.length; i++) {
                 backyardArray[i].tap(function (e) {
-                    e.target.alpha = 0.5;
-                    stage.update();
+                    if (e.target.alpha == 1) {
+                        e.target.alpha = 0.5;
+                        stage.update();
+                    } else {
+                        e.target.alpha = 1;
+                        stage.update();
+                    }
                 });
             }
 
@@ -64,27 +78,41 @@
             const back2 = new Rectangle(stageW, stageH, blue).addTo(basement);
             const title2 = new Label("Basement").addTo(basement).pos(50, 50);
 
-            const frontLight = lightBulb.clone().addTo(basement).pos(50, 150);
-            const labelFL = new Label("Front Lights").addTo(basement).pos(250, 200);
+            const basementAllLights = lightBulb.clone().sca(0.25).addTo(basement).pos(600, 450).expand();
+            const labelBAL = new Label("All Lights").addTo(basement).pos(800, 500);
+            // basementAllLights.fit();
+            basementAllLights.id = "26239";
 
-            const backLight = lightBulb.clone().addTo(basement).pos(50, 300);
-            const labelBL = new Label("Back Lights").addTo(basement).pos(250, 350);
+            const basementFrontLight = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 150).expand();
+            const labelBFL = new Label("Front Lights").addTo(basement).pos(250, 200);
+            basementFrontLight.id = "5 14 FF 1";
 
-            const frontAlcove = lightBulb.clone().addTo(basement).pos(50, 450);
-            const labelFA = new Label("Front Alcove").addTo(basement).pos(250, 500);
+            const basementBackLight = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 300).expand();
+            const labelBBL = new Label("Back Lights").addTo(basement).pos(250, 350);
+            basementBackLight.id = "5 16 6F 1";
 
-            const backAlcove = lightBulb.clone().addTo(basement).pos(50, 600);
-            const labelBA = new Label("Back Alcove").addTo(basement).pos(250, 650);
+            const basementFrontAlcove = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 450).expand();
+            const labelBFA = new Label("Front Alcove").addTo(basement).pos(250, 500);
+            basementFrontAlcove.id = "B A4 4E 1";
 
-            const hallway = lightBulb.clone().addTo(basement).pos(50, 750);
-            const labelHL = new Label("Hallway Light").addTo(basement).pos(250, 800);
+            const basementBackAlcove = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 600).expand();
+            const labelBBA = new Label("Back Alcove").addTo(basement).pos(250, 650);
+            basementBackAlcove.id = "B A5 BA 1";
 
-            const basementArray = [frontLight, backLight, frontAlcove, backAlcove, hallway];
+            const basementHallway = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 750).expand();
+            const labelBH = new Label("Hallway Light").addTo(basement).pos(250, 800);
+            basementHallway.id = "63722";
 
+            const basementArray = [basementAllLights, basementFrontLight, basementBackLight, basementFrontAlcove, basementBackAlcove, basementHallway];
             for (var i=0; i<basementArray.length; i++) {
                 basementArray[i].tap(function (e) {
-                    e.target.alpha = 0.5;
-                    stage.update();
+                    if (e.target.alpha == 1) {
+                        e.target.alpha = 0.5;
+                        stage.update();
+                    } else {
+                        e.target.alpha = 1;
+                        stage.update();
+                    }
                 });
             }
 
