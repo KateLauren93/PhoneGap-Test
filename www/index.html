@@ -40,7 +40,7 @@
             // BACKYARD
             const backyard = new Container(stageW, stageH);
             const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
-            const title1 = new Label("Backyard").addTo(backyard).pos(50, 50);
+            const backyardTitle = new Label("Backyard").addTo(backyard).pos(50, 50);
 
             const yardLights = christmasLights.clone().centerReg(backyard).expand();
             yardLights.id = "48003";
@@ -137,6 +137,7 @@
                 back1.scaleTo(stage, 100, 100, "both");
                 back2.scaleTo(stage, 100, 100, "both");
                 // backyard placement
+                // backyardTitle.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*0));
                 yardLights.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*0));
                 labelYardLights.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*0));
                 poolHouseFanLight.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*1));
