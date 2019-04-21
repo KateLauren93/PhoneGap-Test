@@ -39,9 +39,9 @@
 
             // BACKYARD
             const backyard = new Container(stageW, stageH);
-            // const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
+            const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
+            // const back1 = frame.asset("backyard.jpg").addTo(backyard);
             const backyardTitle = new Label("Backyard").addTo(backyard).pos(50, 50);
-            const back1 = frame.asset("backyard.jpg").addTo(backyard);
 
             const yardLights = christmasLights.clone().centerReg(backyard).sca(0.25).expand();
             yardLights.id = "48003";
