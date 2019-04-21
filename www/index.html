@@ -9,7 +9,7 @@
 
         const color = light;
         const outerColor = dark;
-        const assets = ["christmas-lights.png", "fan.png", "light-bulb.png", "pool.png"];
+        const assets = ["christmas-lights.png", "fan.png", "light-bulb.png", "pool.png", "backyard.jpg"];
         const path = "assets/";
 
         STYLE = {
@@ -39,26 +39,27 @@
 
             // BACKYARD
             const backyard = new Container(stageW, stageH);
-            const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
+            // const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
             const backyardTitle = new Label("Backyard").addTo(backyard).pos(50, 50);
+            const back1 = frame.asset("backyard.jpg").addTo(backyard);
 
-            const yardLights = christmasLights.clone().centerReg(backyard).expand();
+            const yardLights = christmasLights.clone().centerReg(backyard).sca(0.25).expand();
             yardLights.id = "48003";
             const labelYardLights = new Label("Yard Lights").centerReg(backyard);
 
-            const poolHouseFanLight = lightBulb.clone().centerReg(backyard).expand();
+            const poolHouseFanLight = lightBulb.clone().centerReg(backyard).sca(0.25).expand();
             poolHouseFanLight.id = "05 15 92 1";
             const labelPoolHouseFanLight = new Label("Fan Light").centerReg(backyard);
 
-            const poolHouseFan = fan.clone().centerReg(backyard).expand();
+            const poolHouseFan = fan.clone().centerReg(backyard).sca(0.25).expand();
             poolHouseFan.id = "4090";
             const labelPoolHouseFan = new Label("Fan").centerReg(backyard);
 
-            const poolHouseLight = lightBulb.clone().centerReg(backyard).expand();
+            const poolHouseLight = lightBulb.clone().centerReg(backyard).sca(0.25).expand();
             poolHouseLight.id = "05 15 D7 1";
             const labelPoolHouseLight = new Label("Pool House Lights").centerReg(backyard);
 
-            const poolLight = frame.asset("pool.png").centerReg(backyard).expand();
+            const poolLight = frame.asset("pool.png").centerReg(backyard).sca(0.25).expand();
             poolLight.id = "10063";
             const labelPoolLight = new Label("Pool Lights").centerReg(backyard);
 
@@ -78,30 +79,30 @@
             // BASEMENT
             const basement = new Container(stageW, stageH);
             const back2 = new Rectangle(stageW, stageH, blue).addTo(basement);
-            const title2 = new Label("Basement").addTo(basement).pos(50, 50);
+            const basementTitle = new Label("Basement").addTo(basement).pos(50, 50);
 
-            const basementAllLights = lightBulb.clone().sca(0.25).addTo(basement).pos(600, 450).expand();
-            const labelBAL = new Label("All Lights").addTo(basement).pos(800, 500);
+            const basementAllLights = lightBulb.clone().centerReg(basement).sca(0.15).expand();
+            const labelBAL = new Label("All Lights").centerReg(basement);
             basementAllLights.id = "26239";
 
-            const basementFrontLight = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 150).expand();
-            const labelBFL = new Label("Front Lights").addTo(basement).pos(250, 200);
+            const basementFrontLight = lightBulb.clone().centerReg(basement).sca(0.15).expand();
+            const labelBFL = new Label("Front Lights").centerReg(basement);
             basementFrontLight.id = "5 14 FF 1";
 
-            const basementBackLight = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 300).expand();
-            const labelBBL = new Label("Back Lights").addTo(basement).pos(250, 350);
+            const basementBackLight = lightBulb.clone().centerReg(basement).sca(0.15).expand();
+            const labelBBL = new Label("Back Lights").centerReg(basement);
             basementBackLight.id = "5 16 6F 1";
 
-            const basementFrontAlcove = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 450).expand();
-            const labelBFA = new Label("Front Alcove").addTo(basement).pos(250, 500);
+            const basementFrontAlcove = lightBulb.clone().centerReg(basement).sca(0.15).expand();
+            const labelBFA = new Label("Front Alcove").centerReg(basement);
             basementFrontAlcove.id = "B A4 4E 1";
 
-            const basementBackAlcove = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 600).expand();
-            const labelBBA = new Label("Back Alcove").addTo(basement).pos(250, 650);
+            const basementBackAlcove = lightBulb.clone().centerReg(basement).sca(0.15).expand();
+            const labelBBA = new Label("Back Alcove").centerReg(basement);
             basementBackAlcove.id = "B A5 BA 1";
 
-            const basementHallway = lightBulb.clone().sca(0.25).addTo(basement).pos(50, 750).expand();
-            const labelBH = new Label("Hallway Light").addTo(basement).pos(250, 800);
+            const basementHallway = lightBulb.clone().centerReg(basement).sca(0.15).expand();
+            const labelBH = new Label("Hallway Light").centerReg(basement);
             basementHallway.id = "63722";
 
             const basementArray = [basementAllLights, basementFrontLight, basementBackLight, basementFrontAlcove, basementBackAlcove, basementHallway];
@@ -124,11 +125,19 @@
             ], "slide").addTo();
 
             // RESPONSIVE
+            // backyard
             var factor = 0.25;
             var marginX = 0.25;
             var spacingX = 0.5;
             var marginY = 0.25;
             var spacingY = 0.15;
+
+            // basement
+            var basementFactor = 0.25;
+            var basementMarginX = 0.25;
+            var basementSpacingX = 0.5;
+            var basementMarginY = 0.25;
+            var basementSpacingY = 0.1;
 
             frame.on("resize", () => {
                 stageW = frame.width;
@@ -136,18 +145,49 @@
                 // zog(stageW, stageH);
                 back1.scaleTo(stage, 100, 100, "both");
                 back2.scaleTo(stage, 100, 100, "both");
-                // backyard placement
-                // backyardTitle.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*0));
-                yardLights.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*0));
-                labelYardLights.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*0));
-                poolHouseFanLight.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*1));
-                labelPoolHouseFanLight.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*1));
-                poolHouseFan.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*2));
-                labelPoolHouseFan.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*2));
-                poolHouseLight.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*3));
-                labelPoolHouseLight.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*3));
-                poolLight.siz(stageW*factor).loc(stageW*marginX, stageH*(marginY+spacingY*4));
-                labelPoolLight.siz(stageW*factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*4));
+
+                // BACKYARD
+                // placement of icons
+                yardLights.loc(stageW*marginX, stageH*(marginY+spacingY*0));
+                poolHouseFanLight.loc(stageW*marginX, stageH*(marginY+spacingY*1));
+                poolHouseFan.loc(stageW*marginX, stageH*(marginY+spacingY*2));
+                poolHouseLight.loc(stageW*marginX, stageH*(marginY+spacingY*3));
+                poolLight.loc(stageW*marginX, stageH*(marginY+spacingY*4));
+
+                // placement and sizing of labels
+                labelYardLights.scaleTo(stage, 25).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*0));
+                labelPoolHouseFanLight.scaleTo(stage, 20).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*1));
+                labelPoolHouseFan.scaleTo(stage, 10).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*2));
+                labelPoolHouseLight.scaleTo(stage, 35).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*3));
+                labelPoolLight.scaleTo(stage, 25).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*4));
+
+                // scale the title to 25% the width
+				// position title at 5% margin left and top
+                backyardTitle.scaleTo(stage, 25);
+                backyardTitle.pos(stageW*.05, stageH*.05);
+
+                // BASEMENT
+                // placement of icons
+                basementAllLights.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*0));
+                basementFrontLight.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*1));
+                basementBackLight.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*2));
+                basementFrontAlcove.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*3));
+                basementBackAlcove.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*4));
+                basementHallway.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*5));
+
+                // placement and sizing of labels
+                labelBAL.scaleTo(stage, 23).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*0));
+                labelBFL.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*1));
+                labelBBL.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*2));
+                labelBFA.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*3));
+                labelBBA.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*4));
+                labelBH.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*5));
+
+                // scale the title to 25% the width
+				// position title at 5% margin left and top
+                basementTitle.scaleTo(stage, 25);
+                basementTitle.pos(stageW*.05, stageH*.05);
+
                 pages.resize();
                 stage.update();
             });
