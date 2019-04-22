@@ -17,7 +17,7 @@
                 Label: {
                     // centerReg: true,
                     valign: "center",
-                    outline: true
+                    // outline: true
                 }
             }
         }
@@ -39,29 +39,29 @@
 
             // BACKYARD
             const backyard = new Container(stageW, stageH);
-            var manager = new GridManager(backyard);
+            // var manager = new GridManager(backyard);
             // manager.add(new Grid());
-            // const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
-            const back1 = frame.asset("backyard-2.jpg").addTo(backyard);
+            const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
+            // const back1 = frame.asset("backyard-2.jpg").addTo(backyard);
             const backyardTitle = new Label("Backyard", null, null, white).addTo(backyard).pos(50, 50);
 
-            const yardLights = christmasLights.clone().centerReg(backyard).sca(0.25).expand();
+            const yardLights = christmasLights.clone().centerReg(backyard).sca(0.15).expand();
             yardLights.id = "48003";
             const labelYardLights = new Label("Yard Lights", null, null, white).centerReg(backyard);
 
-            const poolHouseFanLight = lightBulb.clone().centerReg(backyard).sca(0.25).expand();
+            const poolHouseFanLight = lightBulb.clone().centerReg(backyard).sca(0.15).expand();
             poolHouseFanLight.id = "05 15 92 1";
             const labelPoolHouseFanLight = new Label("Fan Light", null, null, white).centerReg(backyard);
 
-            const poolHouseFan = fan.clone().centerReg(backyard).sca(0.25).expand();
+            const poolHouseFan = fan.clone().centerReg(backyard).sca(0.15).expand();
             poolHouseFan.id = "4090";
             const labelPoolHouseFan = new Label("Fan", null, null, white).centerReg(backyard);
 
-            const poolHouseLight = lightBulb.clone().centerReg(backyard).sca(0.25).expand();
+            const poolHouseLight = lightBulb.clone().centerReg(backyard).sca(0.15).expand();
             poolHouseLight.id = "05 15 D7 1";
             const labelPoolHouseLight = new Label("Pool House Lights", null, null, white).centerReg(backyard);
 
-            const poolLight = frame.asset("pool.png").centerReg(backyard).sca(0.25).expand();
+            const poolLight = frame.asset("pool.png").centerReg(backyard).sca(0.15).expand();
             poolLight.id = "10063";
             const labelPoolLight = new Label("Pool Lights", null, null, white).centerReg(backyard);
 
@@ -120,8 +120,6 @@
                 });
             }
 
-
-
             // PAGE CONTROL
             const pages = new Pages([
                 {page:backyard, swipe:[basement, basement]},
@@ -130,18 +128,18 @@
 
             // RESPONSIVE
             // backyard
-            var factor = 0.25;
+            var factor = 800;
             var marginX = 0.25;
             var spacingX = 0.5;
             var marginY = 0.25;
-            var spacingY = 0.15;
+            var spacingY = 0.13;
 
             // basement
-            var basementFactor = 0.25;
+            var basementFactor = 800;
             var basementMarginX = 0.25;
             var basementSpacingX = 0.5;
             var basementMarginY = 0.25;
-            var basementSpacingY = 0.1;
+            var basementSpacingY = 0.13;
 
             frame.on("resize", () => {
                 stageW = frame.width;
@@ -159,11 +157,11 @@
                 poolLight.loc(stageW*marginX, stageH*(marginY+spacingY*4));
 
                 // placement and sizing of labels
-                labelYardLights.sca(.5).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*0));
-                labelPoolHouseFanLight.scaleTo(stage, 20).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*1));
-                labelPoolHouseFan.scaleTo(labelPoolHouseLight, 10).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*2));
-                labelPoolHouseLight.scaleTo(stage, 35).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*3));
-                labelPoolLight.scaleTo(stage, 25).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*4));
+                labelYardLights.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*0));
+                labelPoolHouseFanLight.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*1));
+                labelPoolHouseFan.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*2));
+                labelPoolHouseLight.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*3));
+                labelPoolLight.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*4));
 
                 // scale the title to 25% the width
 	            // position title at 5% margin left and top
@@ -180,12 +178,12 @@
                 basementHallway.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*5));
 
                 // placement and sizing of labels
-                labelBAL.scaleTo(stage, 23).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*0));
-                labelBFL.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*1));
-                labelBBL.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*2));
-                labelBFA.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*3));
-                labelBBA.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*4));
-                labelBH.scaleTo(stage, 25).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*5));
+                labelBAL.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*0));
+                labelBFL.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*1));
+                labelBBL.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*2));
+                labelBFA.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*3));
+                labelBBA.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*4));
+                labelBH.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*5));
 
                 // scale the title to 25% the width
 				// position title at 5% margin left and top
