@@ -9,18 +9,19 @@
 
         const color = light;
         const outerColor = dark;
-        const assets = ["christmas-lights.png", "fan.png", "light-bulb.png", "pool.png", "backyard-2.jpg"];
+        const assets = ["christmas-lights.png", "fan.png", "light-bulb.png", "pool.png", "backyard.png", "basement.png"];
         const path = "assets/";
 
-        STYLE = {
-            type: {
-                Label: {
-                    // centerReg: true,
-                    valign: "center",
-                    // outline: true
-                }
-            }
-        }
+        // ZIM way of doing CSS styling
+        // STYLE = {
+        //     type: {
+        //         Label: {
+        //             centerReg: true,
+        //             valign: "center",
+        //             outline: true
+        //         }
+        //     }
+        // }
 
         const frame = new Frame({color, outerColor, assets, path});
         frame.on("ready", () => {
@@ -39,10 +40,8 @@
 
             // BACKYARD
             const backyard = new Container(stageW, stageH);
-            // var manager = new GridManager(backyard);
-            // manager.add(new Grid());
-            const back1 = new Rectangle(stageW, stageH, green).addTo(backyard);
-            // const back1 = frame.asset("backyard-2.jpg").addTo(backyard);
+            // const backyardBack = new Rectangle(stageW, stageH, green).addTo(backyard);
+            const backyardBack = frame.asset("backyard.png").addTo(backyard);
             const backyardTitle = new Label("Backyard", null, null, white).addTo(backyard).pos(50, 50);
 
             const yardLights = christmasLights.clone().centerReg(backyard).sca(0.15).expand();
@@ -69,7 +68,7 @@
             for (var i=0; i<backyardArray.length; i++) {
                 backyardArray[i].tap(function (e) {
                     if (e.target.alpha == 1) {
-                        e.target.alpha = 0.5;
+                        e.target.alpha = 0.25;
                         stage.update();
                     } else {
                         e.target.alpha = 1;
@@ -80,38 +79,39 @@
 
             // BASEMENT
             const basement = new Container(stageW, stageH);
-            const back2 = new Rectangle(stageW, stageH, blue).addTo(basement);
-            const basementTitle = new Label("Basement").addTo(basement).pos(50, 50);
+            // const basementBack = new Rectangle(stageW, stageH, blue).addTo(basement);
+            const basementBack = frame.asset("basement.png").addTo(basement);
+            const basementTitle = new Label("Basement", null, null, white).addTo(basement).pos(50, 50);
 
             const basementAllLights = lightBulb.clone().centerReg(basement).sca(0.15).expand();
-            const labelBAL = new Label("All Lights").centerReg(basement);
+            const labelBAL = new Label("All Lights", null, null, white).centerReg(basement);
             basementAllLights.id = "26239";
 
             const basementFrontLight = lightBulb.clone().centerReg(basement).sca(0.15).expand();
-            const labelBFL = new Label("Front Lights").centerReg(basement);
+            const labelBFL = new Label("Front Lights", null, null, white).centerReg(basement);
             basementFrontLight.id = "5 14 FF 1";
 
             const basementBackLight = lightBulb.clone().centerReg(basement).sca(0.15).expand();
-            const labelBBL = new Label("Back Lights").centerReg(basement);
+            const labelBBL = new Label("Back Lights", null, null, white).centerReg(basement);
             basementBackLight.id = "5 16 6F 1";
 
             const basementFrontAlcove = lightBulb.clone().centerReg(basement).sca(0.15).expand();
-            const labelBFA = new Label("Front Alcove").centerReg(basement);
+            const labelBFA = new Label("Front Alcove", null, null, white).centerReg(basement);
             basementFrontAlcove.id = "B A4 4E 1";
 
             const basementBackAlcove = lightBulb.clone().centerReg(basement).sca(0.15).expand();
-            const labelBBA = new Label("Back Alcove").centerReg(basement);
+            const labelBBA = new Label("Back Alcove", null, null, white).centerReg(basement);
             basementBackAlcove.id = "B A5 BA 1";
 
             const basementHallway = lightBulb.clone().centerReg(basement).sca(0.15).expand();
-            const labelBH = new Label("Hallway Light").centerReg(basement);
+            const labelBH = new Label("Hallway Light", null, null, white).centerReg(basement);
             basementHallway.id = "63722";
 
             const basementArray = [basementAllLights, basementFrontLight, basementBackLight, basementFrontAlcove, basementBackAlcove, basementHallway];
             for (var i=0; i<basementArray.length; i++) {
                 basementArray[i].tap(function (e) {
                     if (e.target.alpha == 1) {
-                        e.target.alpha = 0.5;
+                        e.target.alpha = 0.25;
                         stage.update();
                     } else {
                         e.target.alpha = 1;
@@ -127,26 +127,18 @@
             ], "slide").addTo();
 
             // RESPONSIVE
-            // backyard
-            var factor = 800;
-            var marginX = 0.25;
-            var spacingX = 0.5;
-            var marginY = 0.25;
-            var spacingY = 0.13;
-
-            // basement
-            var basementFactor = 800;
-            var basementMarginX = 0.25;
-            var basementSpacingX = 0.5;
-            var basementMarginY = 0.25;
-            var basementSpacingY = 0.13;
+            const factor = 800;
+            const marginX = 0.25;
+            const spacingX = 0.3;
+            const marginY = 0.25;
+            const spacingY = 0.13;
 
             frame.on("resize", () => {
                 stageW = frame.width;
                 stageH = frame.height;
                 // zog(stageW, stageH);
-                back1.scaleTo(stage, 100, 100, "both");
-                back2.scaleTo(stage, 100, 100, "both");
+                backyardBack.scaleTo(stage, 100, 100, "both");
+                basementBack.scaleTo(stage, 100, 100, "both");
 
                 // BACKYARD
                 // placement of icons
@@ -170,20 +162,20 @@
 
                 // BASEMENT
                 // placement of icons
-                basementAllLights.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*0));
-                basementFrontLight.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*1));
-                basementBackLight.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*2));
-                basementFrontAlcove.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*3));
-                basementBackAlcove.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*4));
-                basementHallway.loc(stageW*basementMarginX, stageH*(basementMarginY+basementSpacingY*5));
+                basementAllLights.loc(stageW*marginX, stageH*(marginY+spacingY*0));
+                basementFrontLight.loc(stageW*marginX, stageH*(marginY+spacingY*1));
+                basementBackLight.loc(stageW*marginX, stageH*(marginY+spacingY*2));
+                basementFrontAlcove.loc(stageW*marginX, stageH*(marginY+spacingY*3));
+                basementBackAlcove.loc(stageW*marginX, stageH*(marginY+spacingY*4));
+                basementHallway.loc(stageW*marginX, stageH*(marginY+spacingY*5));
 
                 // placement and sizing of labels
-                labelBAL.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*0));
-                labelBFL.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*1));
-                labelBBL.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*2));
-                labelBFA.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*3));
-                labelBBA.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*4));
-                labelBH.sca(stageW/factor).loc(stageW*(basementMarginX+basementSpacingX), stageH*(basementMarginY+basementSpacingY*5));
+                labelBAL.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*0));
+                labelBFL.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*1));
+                labelBBL.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*2));
+                labelBFA.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*3));
+                labelBBA.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*4));
+                labelBH.sca(stageW/factor).loc(stageW*(marginX+spacingX), stageH*(marginY+spacingY*5));
 
                 // scale the title to 25% the width
 				// position title at 5% margin left and top
